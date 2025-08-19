@@ -1,5 +1,7 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,34 +11,39 @@ public class ManageProducts {
     private static List<Product> allProducts;
 
     public static void main(String[] args) {
-        File directory = new File("./");
-        String name = directory.getAbsolutePath() + "//companies.csv";
         allProducts = new ArrayList<>();
-
-        readFile(name);
+        readFile();
+        writeMissingDepartments();
+        writeGraniteProducts();
     }
 
     // Question 3 - A: read file
-    // Reads a CSV file and populates the allProducts list to be used in other methods
-    public static void readFile(String name) {
+    // Reads products.txt and prints to system output
+    // Also populates the allProducts list to be used in other methods
+    public static void readFile() {
+        File directory = new File("./");
+        String name = directory.getAbsolutePath() + "//products.txt";
         try (Scanner scanner = new Scanner(new File(name))) {
-            scanner.nextLine();
+            System.out.println("------------------------------");
             System.out.println("Reading data: " + name);
             while (scanner.hasNextLine()) {
+                // Scan each line and print to system output
                 String sGetData = scanner.nextLine();
                 System.out.println(sGetData);
-                String[] data = sGetData.split(";");
 
+                // Split by comma and create new Product with data
+                String[] data = sGetData.split(",");
                 Product product = new Product(
                         Integer.parseInt(data[0]),
                         data[1],
                         data[2],
                         data[3],
-                        Integer.parseInt(data[4]));
+                        Double.parseDouble(data[4]));
+                // Adds product to allProducts to be used for Question 3 - B and D
                 allProducts.add(product);
             }
-        } catch (Exception e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find file: " + e.getMessage());
         }
     }
 
@@ -49,12 +56,11 @@ public class ManageProducts {
             for (Product product : allProducts) {
                 if (product.getIndustry() == null || product.getIndustry().trim().isEmpty()) {
                     writer.println(
-                        product.getId() + ";" +
-                        product.getName() + ";" +
-                        product.getType() + ";" +
-                        product.getIndustry() + ";" +
-                        product.getPrice()
-                    );
+                            product.getId() + "," +
+                                    product.getName() + "," +
+                                    product.getMaterial() + "," +
+                                    product.getIndustry() + "," +
+                                    String.format("%.2f", product.getPrice()));
                 }
             }
             System.out.println("Missing departments written to " + newFile.getAbsolutePath());
@@ -68,18 +74,17 @@ public class ManageProducts {
         File newFile = new File("granite_products.txt");
         try (PrintWriter writer = new PrintWriter(new FileWriter(newFile))) {
             for (Product product : allProducts) {
-                if ("Granite".equalsIgnoreCase(product.getType())) {
+                if ("Granite".equalsIgnoreCase(product.getMaterial())) {
                     writer.println(
-                        product.getId() + ";" +
-                        product.getName() + ";" +
-                        product.getType() + ";" +
-                        product.getIndustry() + ";" +
-                        product.getPrice()
-                    );
+                            product.getId() + "," +
+                                    product.getName() + "," +
+                                    product.getMaterial() + "," +
+                                    product.getIndustry() + "," +
+                                    String.format("%.2f", product.getPrice()));
                 }
             }
             System.out.println("Products using granite written to " + newFile.getAbsolutePath());
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error writing file: " + e.getMessage());
         }
     }
