@@ -1,14 +1,16 @@
 public class Product {
+    // Data members
     private int id;
     private String name;
-    private String type;      // e.g., "Steel", "Granite"
-    private String industry;  // e.g., "Games", "Beauty"
-    private int price;        // you could also use double for currency
+    private String material;
+    private String industry;
+    private double price;
 
-    public Product(int id, String name, String type, String industry, int price) {
+    // Constructor
+    public Product(int id, String name, String material, String industry, double price) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.material = material;
         this.industry = industry;
         this.price = price;
     }
@@ -22,15 +24,15 @@ public class Product {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public String getMaterial() {
+        return material;
     }
 
     public String getIndustry() {
         return industry;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -43,26 +45,35 @@ public class Product {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     public void setIndustry(String industry) {
         this.industry = industry;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
     // ToString for printing
     @Override
     public String toString() {
-        return "Product:" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", industry='" + industry + '\'' +
-                ", price=" + price;
+        return "Product: - " +
+                "ID: " + id +
+                ", Name: " + name +
+                ", Material: " + material +
+                ", Industry: " + industry +
+                ", Price: " + String.format("%.2f", price);
+    }
+
+    public static void main(String[] args) {
+        // Testing Product Class
+        System.out.println();
+        System.out.println("------------------------------");
+        Product product = new Product(1, "Test Name", "Test Material", "Test Industry", 30.50);
+        System.out.println(product);
+        System.out.println("------------------------------");
     }
 }
