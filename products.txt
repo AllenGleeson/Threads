@@ -1,0 +1,25 @@
+1,Oriental Wooden Chair,Cotton,Home,743.00
+2,Ergonomic Soft Keyboard,Wooden,Toys,490.00
+3,Small Wooden Car,Granite,Sports,643.00
+4,Practical Bronze Shirt,Steel,,754.00
+5,Refined Soft Table,Wooden,Beauty,85.00
+6,Refined Wooden Sausages,Frozen,Baby,302.00
+7,Recycled Towels,Plastic,Tools,626.00
+8,Incredible Concrete Hat,Cotton,Beauty,294.00
+9,Recycled Fresh Chicken,Granite,,917.00
+10,Elegant Pants,Frozen,Automotive,787.00
+11,Oriental Wooden Bacon,Steel,Computers,517.00
+12,Electronic Chair,Fresh,Sports,807.00
+13,Bespoke Chips,Plastic,,787.00
+14,Small Bronze Chair,Granite,Books,521.00
+15,Practical Soft Shirt,Bronze,Computers,479.00
+16,Sleek Fresh Computer,Steel,Home,47.00
+17,Awesome Sausages,Plastic,Tools,490.00
+18,Fantastic Rubber Towels,Cotton,Games,517.00
+19,Intelligent Rubber Table,Beauty,,357.00
+20,Modern Bronze Towels,Metal,Industrial,871.00
+21,Licensed Fresh Soap,Plastic,Clothing,866.00
+22,Bespoke Shirt,Rubber,Health,787.00
+23,Recycled Chicken,Cotton,,337.00
+24,Handmade Bronze Gloves,Granite,Beauty,762.00
+25,Incredible Gold Computer,Steel,Outdoors,364.00
