@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ManageProducts {
+    // Data members
     private static List<Product> allProducts;
 
     public static void main(String[] args) {
         allProducts = new ArrayList<>();
         readFile();
-        writeMissingDepartments();
-        writeGraniteProducts();
+        writeMissingDepartments("MissingDepartment.txt");
+        writeGraniteProducts("granite_products.txt");
     }
 
     // Question 3 - A: read file
@@ -48,44 +49,53 @@ public class ManageProducts {
     }
 
     // Question 3 - B: write missing departments to new file
-    public static void writeMissingDepartments() {
+    public static void writeMissingDepartments(String missingDepPath) {
         // Create a new file to write products with missing departments
-        File newFile = new File("MissingDepartment.txt");
-        try (PrintWriter writer = new PrintWriter(new FileWriter(newFile))) {
+        try {
+            FileWriter fw = new FileWriter(missingDepPath);
+            PrintWriter pw = new PrintWriter(fw);
             // Loop through products and write products with missing departments
             for (Product product : allProducts) {
                 if (product.getIndustry() == null || product.getIndustry().trim().isEmpty()) {
-                    writer.println(
-                            product.getId() + "," +
-                                    product.getName() + "," +
-                                    product.getMaterial() + "," +
-                                    product.getIndustry() + "," +
-                                    String.format("%.2f", product.getPrice()));
+                    pw.println(
+                        product.getId() + "," +
+                        product.getName() + "," +
+                        product.getMaterial() + "," +
+                        product.getIndustry() + "," +
+                        String.format("%.2f", product.getPrice())
+                    );
                 }
             }
-            System.out.println("Missing departments written to " + newFile.getAbsolutePath());
-        } catch (Exception e) {
+            pw.close();
+            fw.close();
+            System.out.println("Missing departments written to " + missingDepPath);
+        } catch (IOException e) {
             System.out.println("Error writing file: " + e.getMessage());
         }
     }
 
-    // Question 3 - C: write granite products to new file
-    public static void writeGraniteProducts() {
-        File newFile = new File("granite_products.txt");
-        try (PrintWriter writer = new PrintWriter(new FileWriter(newFile))) {
+    // Question 3 - D: write granite products to new file
+    public static void writeGraniteProducts(String graniteFilePath) {
+        try {
+            FileWriter newFile = new FileWriter(graniteFilePath);
+            PrintWriter writer = new PrintWriter(newFile);
             for (Product product : allProducts) {
                 if ("Granite".equalsIgnoreCase(product.getMaterial())) {
                     writer.println(
-                            product.getId() + "," +
-                                    product.getName() + "," +
-                                    product.getMaterial() + "," +
-                                    product.getIndustry() + "," +
-                                    String.format("%.2f", product.getPrice()));
+                        product.getId() + "," +
+                        product.getName() + "," +
+                        product.getMaterial() + "," +
+                        product.getIndustry() + "," +
+                        String.format("%.2f", product.getPrice())
+                    );
                 }
             }
-            System.out.println("Products using granite written to " + newFile.getAbsolutePath());
-        } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+            writer.close();
+            newFile.close();
+            System.out.println("Products using granite written to " + graniteFilePath);
+        }
+        catch (IOException e) {
+            System.out.println("Error writing granite products file: " + e.getMessage());
         }
     }
 }
