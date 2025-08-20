@@ -36,13 +36,7 @@ public class DrawerThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("New DrawerThread started.");
         calc();
-        System.out.println("Sum: " + sum);
-        System.out.println("Max: " + max);
-        System.out.println("Min: " + min);
-        System.out.println("Average: " + avg);
-        System.out.println("DrawerThread finished.");
     }
 
     // Question 2 - A: Calculate sum, max, min, and average
