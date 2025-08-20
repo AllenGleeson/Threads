@@ -9,22 +9,42 @@ public class DrawerThreadsApp {
   public static void main(String[] args) {
     // Generate data for drawers
     ArrayList[] drawersData = Taba.generateData();
-
-    // Initialize DrawerThread array
-    DrawerThread[] drawerThreads = new DrawerThread[drawersData.length];
-
+    int dataLength = drawersData.length;
+    DrawerThread[] drawerThreads = new DrawerThread[dataLength];
+    Thread[] threads = new Thread[dataLength];
     // Fill DrawerThread array with new DrawerThreads with each drawers data
-    for (int i = 0; i < drawersData.length; i++) {
+    for (int i = 0; i < dataLength; i++) {
       drawerThreads[i] = new DrawerThread(drawersData[i]);
+      threads[i] = new Thread(drawerThreads[i]);
     }
 
-    // Question 2 - A: Start each DrawerThread and calculate sum, max, min, and average
+    // Question 2 - A: Start each DrawerThread and calculate sum, max, min, and
+    // average
     // Starts each DrawerThread
     int i = 0;
     System.out.println("Starting DrawerThreads...");
-    for (DrawerThread drawerThread : drawerThreads) {
+    for (Thread thread : threads) {
       System.out.println("Starting DrawerThread " + (++i));
-      new Thread(drawerThread).start();
+      thread.start();
+    }
+
+    // Uses .join() to wait for each thread to finish before getting the grand totals
+    for (Thread thread : threads) {
+      try {
+        thread.join();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+
+    i = 0;
+    for (DrawerThread drawerThread : drawerThreads) {
+      System.out.println("DrawerThread " + (++i) + " finished with results:");
+      System.out.println("Sum: " + drawerThread.getSum());
+      System.out.println("Max: " + drawerThread.getMax());
+      System.out.println("Min: " + drawerThread.getMin());
+      System.out.println("Average: " + drawerThread.getAvg());
+      System.out.println("-----------------------------");
     }
 
     // Question 2 - B: Grand Total
