@@ -9,10 +9,13 @@ public class DrawerThreadsApp {
   public static void main(String[] args) {
     // Generate data for drawers
     ArrayList[] drawersData = Taba.generateData();
+    // Set dataLength to the length of drawersData
     int dataLength = drawersData.length;
+    // Initialize DrawerThread and Thread arrays
     DrawerThread[] drawerThreads = new DrawerThread[dataLength];
     Thread[] threads = new Thread[dataLength];
-    // Fill DrawerThread array with new DrawerThreads with each drawers data
+    // Fill DrawerThread array with new DrawerThreads that implements Runnable with each drawers data
+    // Also creates new thread and passes in DrawerThread
     for (int i = 0; i < dataLength; i++) {
       drawerThreads[i] = new DrawerThread(drawersData[i]);
       threads[i] = new Thread(drawerThreads[i]);
@@ -37,6 +40,7 @@ public class DrawerThreadsApp {
       }
     }
 
+    // Prints results of each thread
     i = 0;
     for (DrawerThread drawerThread : drawerThreads) {
       System.out.println("DrawerThread " + (++i) + " finished with results:");
@@ -60,15 +64,20 @@ public class DrawerThreadsApp {
 
   // Method to calculate grand total sum, max, min, and average
   private static void calc(DrawerThread[] drawers) {
+    // Loops through each DrawerThread to get grand totals
     for (DrawerThread drawer : drawers) {
+      // Adds number to sum
       sum += drawer.getSum();
+      // Checks if number is more than max and sets max if it is
       if (drawer.getMax() > max) {
         max = drawer.getMax();
       }
+      // Checks if number is less than min and sets min if it is
       if (drawer.getMin() < min) {
         min = drawer.getMin();
       }
     }
+    // Calculates average
     avg = sum / drawers.length;
   }
 }

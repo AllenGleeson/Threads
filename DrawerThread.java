@@ -34,6 +34,7 @@ public class DrawerThread implements Runnable {
         this.avg = 0;
     }
 
+    // Override run method
     @Override
     public void run() {
         calc();
@@ -46,16 +47,21 @@ public class DrawerThread implements Runnable {
             System.out.println("No drawer records.");
             return;
         }
+        // Loops through each record in the drawer
         for (int iCount = 0; iCount < drawer.size(); iCount++) {
             int record = (int)drawer.get(iCount);
+            // Adds number to sum
             sum += record;
+            // Checks if number is more than max and sets max if it is
             if (record > max) {
                 max = record;
             }
+            // Checks if number is less than min and sets min if it is
             if (record < min) {
                 min = record;
             }
         }
+        // Calculates average
         avg = sum / drawer.size();
     }
 }
